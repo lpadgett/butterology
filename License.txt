@@ -3,3 +3,6 @@ of publishing the app and/or motivations of profit
 (be it direct via purchase of the app or indirect by ad revenue), 
 i.e. by publishing on the Apple App Store, Google Play, 
 or any other such marketplaces.
+
+Simply put: I grant no permission for anyone but myself to publish
+this app.
