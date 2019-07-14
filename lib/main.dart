@@ -26,25 +26,44 @@ class HomeScreen extends StatelessWidget {
         ),
         body: Stack ( //Use stack to support aligning multiple children
           children: <Widget>[
-            Align(
-              alignment: Alignment(0.0, 0.5), //Assign alignment
-              child: FlatButton(
-                child: Text(Strings.analysisButton),
+            //TODO: Implement title text on home page
+            Align( //ANALYZE BUTTER BUTTON
+              alignment: Alignment(0.0, 0.45), //Assign alignment
+              child: MaterialButton(
+                height: 45.0,
+                minWidth: 200.0,
                 color: Color.fromRGBO(252, 245, 85, 0.8), //Set button color
+                child: Text(
+                    Strings.analysisButton,
+                    style: new TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.white
+                  ),
+                ),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => AnalysisScreen())); //Navigate to analysis screen
-                }
+                },
+                splashColor: Colors.yellowAccent,
               ),
             ),
-            Align(
-              alignment: Alignment(0.0, 0.7), //Assign alignment
-              child: FlatButton(
-                child: Text(Strings.shareStreakButton),
+            Align( //SHARE STREAK BUTTON
+              alignment: Alignment(0.0, 0.75), //Assign alignment
+              child: MaterialButton(
+                height: 45.0,
+                minWidth: 200.0,
                 color: Color.fromRGBO(252, 245, 85, 0.8), //Set button color
+                child: Text(
+                    Strings.shareStreakButton,
+                    style: new TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.white
+                  ),
+                ),
                 onPressed: () {
                   //TODO: Create sharing feature so people can share their streaks on social media/text/whatever
                   Navigator.push(context, MaterialPageRoute(builder: (context) => AnalysisScreen()));
-                }
+                },
+                splashColor: Colors.yellowAccent,
               )
             )
           ],
