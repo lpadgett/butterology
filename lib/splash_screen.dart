@@ -21,13 +21,24 @@ class SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
+
   //Concrete implementation of State.build
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration( //Draws a box decoration
         color: const Color(0xff6320), //Chooses color
+        image: DecorationImage(
+            image: AssetImage('assets/images/butter_SplashScreen.png'), //Image for splash screen
+            fit: BoxFit.contain //Contains butter picture on splash screen in as large of a box as possible without stretching it oddly
+        ),
+      ),
+      child: Align(
+        alignment: Alignment(0.0, 0.5), //Puts CircularProgressIndicator in middle of bottom half of screen
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(Color(0xFCFCFC)), //Whitish-grey color for CircularProgressIndicator
+        )
       )
-    )
+    );
   }
 }
