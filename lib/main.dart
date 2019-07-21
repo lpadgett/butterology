@@ -1,8 +1,13 @@
 //Last Modified: July 2019
 //Author: Luke Padgett
 import 'package:flutter/material.dart';
-import 'analysisScreen.dart';
+import 'pictureScreen.dart';
 import 'strings.dart';
+import 'package:flutter/services.dart';
+
+//imports for camera and async capabilities
+import 'dart:async';
+import 'package:camera/camera.dart';
 
 void main() { //Start app
   runApp(
@@ -13,20 +18,61 @@ void main() { //Start app
   );
 }
 
+//Async method for selecting camera to pass to PictureScreen
+//Input parameter of BuildContext so it can use Navigator.push
+Future<void> cameraSelection(BuildContext context) async {
+  //Obtain list of the available cameras on the device
+  final cameras = await availableCameras();
+
+  //Get the first available camera and store it
+  final firstCamera = cameras.first;
+
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => PictureScreen(
+        camera: firstCamera,
+      )
+    )
+  );
+
+}
+
 //Create Home screen
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]); //Prevent home screen from rotating sideways
     return MaterialApp(
       title: Strings.title,
       home: Scaffold(
         backgroundColor: Color.fromRGBO(255, 76, 141, 0.9), //Set background color
-        appBar: AppBar(
-          title: Text(Strings.home),
-        ),
         body: Stack ( //Use stack to support aligning multiple children
           children: <Widget>[
-            //TODO: Implement title text on home page
+            Align(
+              alignment: Alignment(0.0, -0.8),
+                child: Text( //Homescreen text
+                 Strings.title.toUpperCase(),
+                  style: new TextStyle(
+                    fontSize: 40.0,
+                    color: Colors.white,
+                   fontWeight: FontWeight.bold
+                  ),
+                ),
+            ),
+            Align(
+              alignment: Alignment(0.2, -0.3), //assign alignment
+              child: FractionallySizedBox(
+                widthFactor: 0.8,
+                heightFactor: 0.4,
+                child: Image.asset (
+                  "assets/images/butter_Homescreen.png", //image to be displayed on homescreen
+                ),
+              ),
+            ),
             Align( //ANALYZE BUTTER BUTTON
               alignment: Alignment(0.0, 0.45), //Assign alignment
               child: MaterialButton(
@@ -41,7 +87,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => AnalysisScreen())); //Navigate to analysis screen
+                  cameraSelection(context); //TODO: TESTING cameraSelection METHOD TO SEE IF IT WORKS
+                  //Navigator.push(context, MaterialPageRoute(builder: (context) => PictureScreen())); //Navigate to analysis screen
                 },
                 splashColor: Colors.yellowAccent,
               ),
@@ -61,7 +108,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   //TODO: Create sharing feature so people can share their streaks on social media/text/whatever
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => AnalysisScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PictureScreen()));
                 },
                 splashColor: Colors.yellowAccent,
               )
