@@ -1,13 +1,14 @@
 //Last Modified: July 2019
 //Author: Luke Padgett
 import 'package:flutter/material.dart';
-import 'pictureScreen.dart';
-import 'strings.dart';
 import 'package:flutter/services.dart';
-
-//imports for camera and async capabilities
 import 'dart:async';
 import 'package:camera/camera.dart';
+import 'pictureScreen.dart';
+
+//imports for strings and asset paths
+import 'strings.dart';
+import 'assets.dart';
 
 void main() { //Start app
   runApp(
@@ -69,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                 widthFactor: 0.8,
                 heightFactor: 0.4,
                 child: Image.asset (
-                  "assets/images/butter_Homescreen.png", //image to be displayed on homescreen
+                  Assets.homeScreenButter, //image to be displayed on homescreen
                 ),
               ),
             ),
@@ -87,8 +88,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  cameraSelection(context); //TODO: TESTING cameraSelection METHOD TO SEE IF IT WORKS
-                  //Navigator.push(context, MaterialPageRoute(builder: (context) => PictureScreen())); //Navigate to analysis screen
+                  cameraSelection(context);
                 },
                 splashColor: Colors.yellowAccent,
               ),
