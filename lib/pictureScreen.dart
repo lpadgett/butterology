@@ -8,6 +8,7 @@ import 'dart:async'; //For awaiting Cameras
 import 'package:camera/camera.dart'; //For cameras
 import 'dart:io'; //For file I/O
 import 'strings.dart';
+import 'analysisScreen.dart';
 
 
 //Allows users to take picture using a camera that is
@@ -53,7 +54,7 @@ class PictureScreenState extends State<PictureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(Strings.picturePrompt), centerTitle: true, backgroundColor: Color.fromRGBO(252, 245, 85, 0.8)),
+      appBar: AppBar(title: Text(Strings.analysisButton.toUpperCase()), centerTitle: true, backgroundColor: Color.fromRGBO(255, 76, 141, 0.9)),
       body: FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
@@ -101,36 +102,6 @@ class PictureScreenState extends State<PictureScreen> {
             print(e);
           }
         },
-      ),
-    );
-  }
-}
-
-class DisplayPictureScreen extends StatelessWidget {
-  final String imagePath;
-
-  const DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar: AppBar(title: Text(Strings.analysis.toUpperCase()), centerTitle: true, backgroundColor: Color.fromRGBO(255, 76, 141, 0.9)),
-      // The image is stored as a file on the device. Use the `Image.file`
-      // constructor with the given path to display the image.
-      body: Stack(
-        children: <Widget>[
-          Align(
-            alignment: Alignment(0.0, 0.0),
-            child: Image.file(
-              File(imagePath),
-              fit: BoxFit.cover,
-              height: double.infinity,
-              width: double.infinity,
-              alignment: Alignment.center,
-            ),
-          ),
-        ]
       ),
     );
   }
