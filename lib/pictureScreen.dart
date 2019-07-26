@@ -53,7 +53,7 @@ class PictureScreenState extends State<PictureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(Strings.picturePrompt), centerTitle: true),
+      appBar: AppBar(title: Text(Strings.picturePrompt), centerTitle: true, backgroundColor: Color.fromRGBO(252, 245, 85, 0.8)),
       body: FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
@@ -65,8 +65,10 @@ class PictureScreenState extends State<PictureScreen> {
           }
         },
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.camera_alt),
+        backgroundColor: Color.fromRGBO(252, 245, 85, 0.8),
         // Provide an onPressed callback.
         onPressed: () async {
           // Take the Picture in a try / catch block. If anything goes wrong,
@@ -113,15 +115,22 @@ class DisplayPictureScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(title: Text(Strings.analysis.toUpperCase())),
+      appBar: AppBar(title: Text(Strings.analysis.toUpperCase()), centerTitle: true, backgroundColor: Color.fromRGBO(255, 76, 141, 0.9)),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
-      body: Image.file(
-        File(imagePath),
-        fit: BoxFit.cover,
-        height: double.infinity,
-        width: double.infinity,
-        alignment: Alignment.center,
+      body: Stack(
+        children: <Widget>[
+          Align(
+            alignment: Alignment(0.0, 0.0),
+            child: Image.file(
+              File(imagePath),
+              fit: BoxFit.cover,
+              height: double.infinity,
+              width: double.infinity,
+              alignment: Alignment.center,
+            ),
+          ),
+        ]
       ),
     );
   }

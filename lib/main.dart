@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:camera/camera.dart';
 import 'pictureScreen.dart';
-
+import 'package:share/share.dart'; //Shares picture to social media
 //imports for strings and asset paths
 import 'strings.dart';
 import 'assets.dart';
@@ -41,6 +41,7 @@ Future<void> cameraSelection(BuildContext context) async {
 
 //Create Home screen
 class HomeScreen extends StatelessWidget {
+  int streak = 0; //Used in sharing streak to social media
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -108,7 +109,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   //TODO: Create sharing feature so people can share their streaks on social media/text/whatever
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => PictureScreen()));
+                  Share.share('testing');
                 },
                 splashColor: Colors.yellowAccent,
               )
@@ -119,5 +120,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-//TODO: Create widget to simplify button creation
