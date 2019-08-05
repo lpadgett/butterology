@@ -108,8 +108,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  //TODO: Create sharing feature so people can share their streaks on social media/text/whatever
-                  Share.share('testing');
+                  //TODO: Fix link once website gets set up so that nothing is hardcoded.
+                  Share.share('https://baljeet4some.wixsite.com/website');
                 },
                 splashColor: Colors.yellowAccent,
               )

@@ -8,11 +8,11 @@ import 'dart:async';
 import 'dart:io';
 import 'strings.dart';
 
-class DisplayPictureScreen extends StatelessWidget {
+class AnalysisScreen extends StatelessWidget {
   final String imagePath;
-  Future<String> _butterState;
+  bool _isButter = butterAnalysis();
 
-  DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
+  AnalysisScreen({Key key, this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,4 +41,8 @@ class DisplayPictureScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+bool butterAnalysis() {
+  return false;
 }
