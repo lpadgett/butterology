@@ -1,4 +1,4 @@
-//Last Modified: July 2019
+//Last Modified: August 2019
 //Author: Luke Padgett
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +9,7 @@ import 'package:share/share.dart'; //Shares picture to social media
 //imports for strings and asset paths
 import 'strings.dart';
 import 'assets.dart';
+import 'colors.dart';
 
 void main() { //Start app
   runApp(
@@ -51,7 +52,7 @@ class HomeScreen extends StatelessWidget {
     return MaterialApp(
       title: Strings.title,
       home: Scaffold(
-        backgroundColor: Color.fromRGBO(255, 76, 141, 0.9), //Set background color
+        backgroundColor: ColorPalette.pinkRedBackgroundColor, //Set background color
         body: Stack ( //Use stack to support aligning multiple children
           children: <Widget>[
             Align(
@@ -80,7 +81,7 @@ class HomeScreen extends StatelessWidget {
               child: MaterialButton(
                 height: 45.0,
                 minWidth: 200.0,
-                color: Color.fromRGBO(252, 245, 85, 0.8), //Set button color
+                color: ColorPalette.yellowButtonColor, //Set button color
                 child: Text(
                     Strings.analysisButton,
                     style: new TextStyle(
@@ -99,7 +100,7 @@ class HomeScreen extends StatelessWidget {
               child: MaterialButton(
                 height: 45.0,
                 minWidth: 200.0,
-                color: Color.fromRGBO(252, 245, 85, 0.8), //Set button color
+                color: ColorPalette.yellowButtonColor, //Set button color
                 child: Text(
                     Strings.shareStreakButton,
                     style: new TextStyle(

@@ -1,4 +1,4 @@
-//Last Modified: July 2019
+//Last Modified: August 2019
 //Author: Luke Padgett
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
@@ -8,8 +8,8 @@ import 'dart:async'; //For awaiting Cameras
 import 'package:camera/camera.dart'; //For cameras
 import 'dart:io'; //For file I/O
 import 'strings.dart';
+import 'colors.dart';
 import 'analysisScreen.dart';
-
 
 //Allows users to take picture using a camera that is
 //Passed in via the cameraSelection method in main.dart.
@@ -54,7 +54,8 @@ class PictureScreenState extends State<PictureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(Strings.analysisButton.toUpperCase()), centerTitle: true, backgroundColor: Color.fromRGBO(255, 76, 141, 0.9)),
+      appBar: AppBar(title: Text(Strings.analysisButton.toUpperCase()), centerTitle: true, backgroundColor: ColorPalette.pinkRedBackgroundColor, elevation: 0.0),
+
       body: FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
@@ -69,7 +70,8 @@ class PictureScreenState extends State<PictureScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.camera_alt),
-        backgroundColor: Color.fromRGBO(252, 245, 85, 0.8),
+        backgroundColor: ColorPalette.yellowButtonColor,
+
         // Provide an onPressed callback.
         onPressed: () async {
           // Take the Picture in a try / catch block. If anything goes wrong,
