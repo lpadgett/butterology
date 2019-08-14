@@ -21,58 +21,27 @@ class AnalysisScreen extends StatelessWidget {
     bool _isButter = isButter();
     var screenSize = MediaQuery.of(context).size;
 
-    if(!_isButter) {
-      return Scaffold(
-        appBar: AppBar(title: Text(Strings.analysis.toUpperCase()),
-            centerTitle: true,
-            backgroundColor: ColorPalette.pinkRedBackgroundColor,
-            elevation: 0
-        ),
-        // The image is stored as a file on the device. Use the `Image.file`
-        // constructor with the given path to display the image.
-        body: Stack(
-            children: <Widget>[
-              Align(
-                alignment: Alignment(0.0, 0.0),
-                child: Image.file(
-                  File(imagePath),
-                  fit: BoxFit.cover,
-                  alignment: Alignment.center,
-                ),
-              ),
-              Align(
-                alignment: Alignment(0.0, -1.5),
-                child: Container(
-                  decoration: new BoxDecoration(
-                    color: ColorPalette.pinkRedBackgroundColor,
-                    borderRadius: new BorderRadius.all(Radius.elliptical(screenWidth(context), screenHeight(context, divisionFactor: 5))),
-                  ),
-                  height: screenHeight(context, divisionFactor: 3),
-                  width: screenWidth(context),
-                ),
-              ),
-              Align(
-                alignment: Alignment(0.0, -0.9),
-                child: Text( //Homescreen text
-                  Strings.notButter.toUpperCase(),
-                  style: new TextStyle(
-                      fontSize: 35.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
-              )
-            ]
-        ),
-      );
-    } else {
+    if(_isButter) {
 
+      analysisScreen(context, imagePath, butterStatus());
     }
+
   }
 }
 
 bool isButter() {
   return false;
+}
+
+bool hasCrumbs() { //TODO: implement
+  return false;
+}
+
+String butterStatus(){
+  if(!hasCrumbs()){
+    return Strings.noCrumbs;
+  }
+  return Strings.crumbs;
 }
 
 Size screenSize(BuildContext context) {
@@ -83,4 +52,54 @@ double screenHeight(BuildContext context, {double divisionFactor = 1}) {
 }
 double screenWidth(BuildContext context, {double divisionFactor = 1}) {
   return screenSize(context).width / divisionFactor;
+}
+
+Scaffold analysisScreen(BuildContext context, String imagePath, String butterStatus){
+  return Scaffold(
+    appBar: AppBar(title: Text(Strings.analysis.toUpperCase()),
+        centerTitle: true,
+        backgroundColor: ColorPalette.pinkRedBackgroundColor,
+        elevation: 0
+    ),
+    // The image is stored as a file on the device. Use the `Image.file`
+    // constructor with the given path to display the image.
+    body: Stack(
+        children: <Widget>[
+          Align(
+              alignment: Alignment(0.0, 0.0),
+              child: Container(
+                width: screenWidth(context, divisionFactor: 1),
+                height: screenHeight(context, divisionFactor: 1),
+                child: Image.file(
+                  File(imagePath),
+                  fit: BoxFit.cover,
+                  alignment: Alignment.center,
+                ),
+              )
+          ),
+          Align(
+            alignment: Alignment(0.0, -2.03),
+            child: Container(
+              decoration: new BoxDecoration(
+                color: ColorPalette.pinkRedBackgroundColor,
+                borderRadius: new BorderRadius.all(Radius.elliptical(screenWidth(context), screenHeight(context, divisionFactor: 10))),
+              ),
+              height: screenHeight(context, divisionFactor: 3),
+              width: screenWidth(context),
+            ),
+          ),
+          Align(
+            alignment: Alignment(0.0, -1.0),
+            child: Text( //Homescreen text
+              Strings.notButter.toUpperCase(),
+              style: new TextStyle(
+                  fontSize: 35.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+          )
+        ]
+    ),
+  );
 }

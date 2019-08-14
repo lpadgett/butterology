@@ -9,5 +9,7 @@ class Strings {
   static const String noStreak = 'You broke your streak! Clean and analyze your butter now to start a new one!';
   static const String neverHadAStreak = 'Start a streak!';
   static const String analysis = 'Analysis';
-  static const String notButter = 'That\'s not butter!';
+  static const String notButter = 'Not Butter';
+  static const String crumbs = 'You\'ve got crumbs!';
+  static const String noCrumbs = 'No crumbs';
 }

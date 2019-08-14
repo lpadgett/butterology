@@ -20,7 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  camera: ^0.4.2
+  camera: ^0.4.3+2 #NOTE: Using camera v0.5.0 and up causes Gradle issues and prevents successful build. Use v0.4.3+2 or below.
   share: ^0.6.2
   #path_provider:
   #path:
