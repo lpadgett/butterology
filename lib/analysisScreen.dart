@@ -22,18 +22,17 @@ class AnalysisScreen extends StatelessWidget {
     var screenSize = MediaQuery.of(context).size;
 
     if(_isButter) {
-
-      analysisScreen(context, imagePath, butterStatus());
+      return analysisScreen(context, imagePath, butterStatus());
     }
-
+    return analysisScreen(context, imagePath, Strings.notButter);
   }
 }
 
-bool isButter() {
-  return false;
+bool isButter() { //TODO: implement tensorflow lite analysis method of determining whether or not something is butter
+  return true;
 }
 
-bool hasCrumbs() { //TODO: implement
+bool hasCrumbs() { //TODO: implement tensorflow lite analysis method of determining whether or not butter has crumbs
   return false;
 }
 
@@ -78,7 +77,7 @@ Scaffold analysisScreen(BuildContext context, String imagePath, String butterSta
               )
           ),
           Align(
-            alignment: Alignment(0.0, -2.03),
+            alignment: Alignment(0.0, -2.00),
             child: Container(
               decoration: new BoxDecoration(
                 color: ColorPalette.pinkRedBackgroundColor,
@@ -89,11 +88,11 @@ Scaffold analysisScreen(BuildContext context, String imagePath, String butterSta
             ),
           ),
           Align(
-            alignment: Alignment(0.0, -1.0),
+            alignment: Alignment(0.0, -1.00),
             child: Text( //Homescreen text
-              Strings.notButter.toUpperCase(),
+              butterStatus.toUpperCase(),
               style: new TextStyle(
-                  fontSize: 35.0,
+                  fontSize: 25.0,
                   color: Colors.white,
                   fontWeight: FontWeight.bold
               ),
