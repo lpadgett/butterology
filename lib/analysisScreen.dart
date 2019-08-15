@@ -9,6 +9,7 @@ import 'dart:async';
 import 'dart:io';
 import 'strings.dart';
 import 'colors.dart';
+import 'package:tflite/tflite.dart';
 
 class AnalysisScreen extends StatelessWidget {
   final String imagePath;
@@ -17,30 +18,22 @@ class AnalysisScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //Boolean stores status of butter
-    bool _isButter = isButter();
-    var screenSize = MediaQuery.of(context).size;
+    var screenSize = MediaQuery
+        .of(context)
+        .size;
 
-    if(_isButter) {
-      return analysisScreen(context, imagePath, butterStatus());
-    }
-    return analysisScreen(context, imagePath, Strings.notButter);
+    return analysisScreen(context, imagePath, butterStatus());
   }
 }
 
-bool isButter() { //TODO: implement tensorflow lite analysis method of determining whether or not something is butter
-  return true;
-}
-
-bool hasCrumbs() { //TODO: implement tensorflow lite analysis method of determining whether or not butter has crumbs
-  return false;
-}
-
-String butterStatus(){
-  if(!hasCrumbs()){
+String butterStatus(){ //TODO: implement tensorflow lite analysis method of determining whether or not butter has crumbs
+  if (notButter) { //notButter is placeholder for return value from tflite model
+    return Strings.notButter;
+  } else if (noCrumbs) { //noCrumbs is placeholder for return value from tflite model
     return Strings.noCrumbs;
+  } else {
+    return Strings.crumbs;
   }
-  return Strings.crumbs;
 }
 
 Size screenSize(BuildContext context) {
