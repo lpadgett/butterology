@@ -12,4 +12,5 @@ class Strings {
   static const String notButter = 'Not Butter';
   static const String crumbs = 'You\'ve got crumbs!';
   static const String noCrumbs = 'No crumbs';
+  static const String shareUs = 'Share Us';
 }

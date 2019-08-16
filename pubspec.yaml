@@ -30,11 +30,9 @@ dependencies:
   cupertino_icons: ^0.1.2
   path_provider: ^1.1.2
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -48,7 +46,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/butter_Homescreen.png #Homescreen logo
+    - assets/images/butter_Homescreen1.png #Homescreen logo
     - assets/model/butterModel.tflite #Image classification model trained for butter
     - assets/model/model_labels.txt #Labels for model
 

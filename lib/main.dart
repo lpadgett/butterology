@@ -67,10 +67,10 @@ class HomeScreen extends StatelessWidget {
                 ),
             ),
             Align(
-              alignment: Alignment(0.2, -0.3), //assign alignment
-              child: FractionallySizedBox(
-                widthFactor: 0.8,
-                heightFactor: 0.4,
+              alignment: Alignment(0.0, -0.3), //assign alignment
+              child: Container(
+                width: screenWidth(context, divisionFactor: 1),
+                height: screenHeight(context, divisionFactor: 2),
                 child: Image.asset (
                   Assets.homeScreenButter, //image to be displayed on homescreen
                 ),
@@ -102,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                 minWidth: 200.0,
                 color: ColorPalette.yellowButtonColor, //Set button color
                 child: Text(
-                    Strings.shareStreakButton,
+                    Strings.shareUs.toUpperCase(),
                     style: new TextStyle(
                       fontSize: 20.0,
                       color: Colors.white
@@ -110,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   //TODO: Fix link once website gets set up so that nothing is hardcoded.
-                  Share.share('https://baljeet4some.wixsite.com/website');
+                  Share.share('Does your butter have crumbs? Find out! ');
                 },
                 splashColor: Colors.yellowAccent,
               )
@@ -119,5 +119,16 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Size screenSize(BuildContext context) {
+    return MediaQuery.of(context).size;
+  }
+  double screenHeight(BuildContext context, {double divisionFactor = 1}) {
+    return screenSize(context).height / divisionFactor;
+  }
+
+  double screenWidth(BuildContext context, {double divisionFactor = 1}) {
+    return screenSize(context).width / divisionFactor;
   }
 }

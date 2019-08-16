@@ -1,7 +1,6 @@
 //Last Modified: August 2019
 //Author: Luke Padgett
 import 'dart:collection';
-
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +64,6 @@ class AnalysisScreen extends State<AnalysisScreenClass> {
   }
 
   Future<List> analyzeButter(String imagePath) async {
-    //TODO: implement tensorflow lite analysis method of determining whether or not butter has crumbs
     String model = await Tflite.loadModel(
         model: Assets.butterModel,
         labels: Assets.butterModelLabels,
