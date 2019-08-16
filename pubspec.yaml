@@ -48,7 +48,9 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/butter_Homescreen.png
+    - assets/images/butter_Homescreen.png #Homescreen logo
+    - assets/model/butterModel.tflite #Image classification model trained for butter
+    - assets/model/model_labels.txt #Labels for model
 
   # To add assets to your application, add an assets section, like this:
   # assets:

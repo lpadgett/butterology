@@ -1,5 +1,7 @@
 //Last Modified: August 2019
 //Author: Luke Padgett
+import 'dart:collection';
+
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
@@ -9,12 +11,22 @@ import 'dart:async';
 import 'dart:io';
 import 'strings.dart';
 import 'colors.dart';
+import 'assets.dart';
 import 'package:tflite/tflite.dart';
 
-class AnalysisScreen extends StatelessWidget {
+class AnalysisScreenClass extends StatefulWidget {
+  @override
+  AnalysisScreen createState() => AnalysisScreen();
   final String imagePath;
+  AnalysisScreenClass({Key key, this.imagePath}) : super(key: key);
+}
 
-  AnalysisScreen({Key key, this.imagePath}) : super(key: key);
+class AnalysisScreen extends State<AnalysisScreenClass> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,76 +34,123 @@ class AnalysisScreen extends StatelessWidget {
         .of(context)
         .size;
 
-    return analysisScreen(context, imagePath, butterStatus());
+    String butterStatusString = butterStatus(widget.imagePath);
+
+    return analysisScreen(
+        context, widget.imagePath, butterStatusString);
   }
-}
 
-String butterStatus(){ //TODO: implement tensorflow lite analysis method of determining whether or not butter has crumbs
-  if (notButter) { //notButter is placeholder for return value from tflite model
-    return Strings.notButter;
-  } else if (noCrumbs) { //noCrumbs is placeholder for return value from tflite model
-    return Strings.noCrumbs;
-  } else {
-    return Strings.crumbs;
+  LinkedHashMap butterStatusMap; //For use in butterStatus
+
+  String butterStatus(String imagePath) {
+    if(butterStatusMap == null) {
+      analyzeButter(imagePath).then((val) =>
+          setState(() {
+            butterStatusMap = val[0];
+          }));
+    }
+
+    if (butterStatusMap != null) {
+      String result = butterStatusMap['label'];
+      if (result ==
+          'notbutter') { //TODO: Find a way to not hard-code these later
+        return Strings.notButter;
+      } else if (result == 'hascrumbs') {
+        return Strings.crumbs;
+      } else if (result == 'nocrumbs') {
+        return Strings.noCrumbs;
+      }
+    }
+    return '';
   }
-}
 
-Size screenSize(BuildContext context) {
-  return MediaQuery.of(context).size;
-}
-double screenHeight(BuildContext context, {double divisionFactor = 1}) {
-  return screenSize(context).height / divisionFactor;
-}
-double screenWidth(BuildContext context, {double divisionFactor = 1}) {
-  return screenSize(context).width / divisionFactor;
-}
+  Future<List> analyzeButter(String imagePath) async {
+    //TODO: implement tensorflow lite analysis method of determining whether or not butter has crumbs
+    String model = await Tflite.loadModel(
+        model: Assets.butterModel,
+        labels: Assets.butterModelLabels,
+        numThreads: 1 // defaults to 1
+    );
+    var butterPicture = await Tflite.runModelOnImage(
+        path: imagePath,
+        // required
+        imageMean: 0.0,
+        // defaults to 117.0
+        imageStd: 255.0,
+        // defaults to 1.0
+        numResults: 1,
+        // defaults to 5
+        threshold: 0.2,
+        // defaults to 0.1
+        asynch: true // defaults to true
+    );
+    return butterPicture;
+  }
 
-Scaffold analysisScreen(BuildContext context, String imagePath, String butterStatus){
-  return Scaffold(
-    appBar: AppBar(title: Text(Strings.analysis.toUpperCase()),
-        centerTitle: true,
-        backgroundColor: ColorPalette.pinkRedBackgroundColor,
-        elevation: 0
-    ),
-    // The image is stored as a file on the device. Use the `Image.file`
-    // constructor with the given path to display the image.
-    body: Stack(
-        children: <Widget>[
-          Align(
-              alignment: Alignment(0.0, 0.0),
+  Size screenSize(BuildContext context) {
+    return MediaQuery
+        .of(context)
+        .size;
+  }
+
+  double screenHeight(BuildContext context, {double divisionFactor = 1}) {
+    return screenSize(context).height / divisionFactor;
+  }
+
+  double screenWidth(BuildContext context, {double divisionFactor = 1}) {
+    return screenSize(context).width / divisionFactor;
+  }
+
+  Scaffold analysisScreen(BuildContext context, String imagePath,
+      String butterStatus) {
+    return Scaffold(
+      appBar: AppBar(title: Text(Strings.analysis.toUpperCase()),
+          centerTitle: true,
+          backgroundColor: ColorPalette.pinkRedBackgroundColor,
+          elevation: 0
+      ),
+      // The image is stored as a file on the device. Use the `Image.file`
+      // constructor with the given path to display the image.
+      body: Stack(
+          children: <Widget>[
+            Align(
+                alignment: Alignment(0.0, 0.0),
+                child: Container(
+                  width: screenWidth(context, divisionFactor: 1),
+                  height: screenHeight(context, divisionFactor: 1),
+                  child: Image.file(
+                    File(imagePath),
+                    fit: BoxFit.cover,
+                    alignment: Alignment.center,
+                  ),
+                )
+            ),
+            Align(
+              alignment: Alignment(0.0, -2.00),
               child: Container(
-                width: screenWidth(context, divisionFactor: 1),
-                height: screenHeight(context, divisionFactor: 1),
-                child: Image.file(
-                  File(imagePath),
-                  fit: BoxFit.cover,
-                  alignment: Alignment.center,
+                decoration: new BoxDecoration(
+                  color: ColorPalette.pinkRedBackgroundColor,
+                  borderRadius: new BorderRadius.all(Radius.elliptical(
+                      screenWidth(context),
+                      screenHeight(context, divisionFactor: 10))),
                 ),
-              )
-          ),
-          Align(
-            alignment: Alignment(0.0, -2.00),
-            child: Container(
-              decoration: new BoxDecoration(
-                color: ColorPalette.pinkRedBackgroundColor,
-                borderRadius: new BorderRadius.all(Radius.elliptical(screenWidth(context), screenHeight(context, divisionFactor: 10))),
-              ),
-              height: screenHeight(context, divisionFactor: 3),
-              width: screenWidth(context),
-            ),
-          ),
-          Align(
-            alignment: Alignment(0.0, -1.00),
-            child: Text( //Homescreen text
-              butterStatus.toUpperCase(),
-              style: new TextStyle(
-                  fontSize: 25.0,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold
+                height: screenHeight(context, divisionFactor: 3),
+                width: screenWidth(context),
               ),
             ),
-          )
-        ]
-    ),
-  );
+            Align(
+              alignment: Alignment(0.0, -1.00),
+              child: Text( //Homescreen text
+                butterStatus.toUpperCase(),
+                style: new TextStyle(
+                    fontSize: 25.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+            )
+          ]
+      ),
+    );
+  }
 }

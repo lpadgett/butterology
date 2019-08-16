@@ -96,7 +96,7 @@ class PictureScreenState extends State<PictureScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AnalysisScreen(imagePath: path),
+                builder: (context) => AnalysisScreenClass(imagePath: path),
               ),
             );
           } catch (e) {
