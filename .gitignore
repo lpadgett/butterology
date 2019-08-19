@@ -12,5 +12,5 @@ pubspec.lock
 # If you don't generate documentation locally you can remove this line.
 doc/api/
 .idea/workspace.xml
-android/key.jks
+android/key.properties
 *.jks

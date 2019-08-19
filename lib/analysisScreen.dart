@@ -166,17 +166,17 @@ class AnalysisScreen extends State<AnalysisScreenClass> {
                 onPressed: () {
                   switch (butterStatus) {
                     case Strings.notButter: {
-                      Share.share(Strings.notButterLink);
+                      Share.share(Strings.shareUsText + Strings.notButterLink);
                     }
                     break;
                     
                     case Strings.crumbs: {
-                      Share.share(Strings.crumbsLink);
+                      Share.share(Strings.shareUsText + Strings.crumbsLink);
                     }
                     break;
                     
                     case Strings.noCrumbs: {
-                      Share.share(Strings.noCrumbsLink);
+                      Share.share(Strings.shareUsText + Strings.noCrumbsLink);
                     }
                     break;
                   }
