@@ -45,7 +45,6 @@ android {
     defaultConfig {applicationId "com.transparentstudios.butterology"
         minSdkVersion 21
         targetSdkVersion 28
-        compileSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

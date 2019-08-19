@@ -14,3 +14,4 @@ doc/api/
 .idea/workspace.xml
 android/key.properties
 key.*
+*.jks
