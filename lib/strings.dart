@@ -9,7 +9,8 @@ class Strings {
   static const String shareUs = 'Share Us';
   static const String share = 'Share';
   static const String shareUsText = 'Does your butter have crumbs in it? Find out with Butterology for Android! iOS is coming soon!';
-  static const String noCrumbsLink = 'https://butterology.xyz';
+  static const String shareLink = 'butterology.xyz';
+  static const String noCrumbsLink = 'https://butterology.xyz/noCrumbs.html';
   static const String crumbsLink = 'https://butterology.xyz/crumbs.html';
   static const String notButterLink = 'https://butterology.xyz/notButter.html';
 }

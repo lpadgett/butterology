@@ -112,7 +112,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  Share.share(Strings.shareUsText + Strings.googlePlayLink);
+                  Share.share(Strings.shareUsText + Strings.shareLink);
                 },
                 splashColor: Colors.yellowAccent,
               )
