@@ -5,7 +5,7 @@ import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:share/share.dart'; //Shares picture to social media
+import 'package:share/share.dart';
 import 'dart:async';
 import 'dart:io';
 import 'strings.dart';
@@ -33,10 +33,12 @@ class AnalysisScreen extends State<AnalysisScreenClass> {
         .of(context)
         .size;
 
+    double buttonWidth = screenWidth(context, divisionFactor: 1.5);
+    double buttonHeight = screenHeight(context, divisionFactor: 10);
     String butterStatusString = butterStatus(widget.imagePath);
 
     return analysisScreen(
-        context, widget.imagePath, butterStatusString);
+        context, widget.imagePath, butterStatusString, buttonWidth, buttonHeight);
   }
 
   LinkedHashMap butterStatusMap; //For use in butterStatus
@@ -85,22 +87,22 @@ class AnalysisScreen extends State<AnalysisScreenClass> {
     return butterPicture;
   }
 
-  Size screenSize(BuildContext context) {
+  static Size screenSize(BuildContext context) {
     return MediaQuery
         .of(context)
         .size;
   }
 
-  double screenHeight(BuildContext context, {double divisionFactor = 1}) {
+  static double screenHeight(BuildContext context, {double divisionFactor = 1}) {
     return screenSize(context).height / divisionFactor;
   }
 
-  double screenWidth(BuildContext context, {double divisionFactor = 1}) {
+  static double screenWidth(BuildContext context, {double divisionFactor = 1}) {
     return screenSize(context).width / divisionFactor;
   }
 
   Scaffold analysisScreen(BuildContext context, String imagePath,
-      String butterStatus) {
+      String butterStatus, double buttonWidth, double buttonHeight) {
     return Scaffold(
       appBar: AppBar(title: Text(Strings.analysis.toUpperCase()),
           centerTitle: true,
@@ -138,13 +140,47 @@ class AnalysisScreen extends State<AnalysisScreenClass> {
             ),
             Align(
               alignment: Alignment(0.0, -1.00),
-              child: Text( //Homescreen text
+              child: Text( //Displays butter status
                 butterStatus.toUpperCase(),
                 style: new TextStyle(
                     fontSize: 25.0,
                     color: Colors.white,
                     fontWeight: FontWeight.bold
                 ),
+              ),
+            ),
+            Align(
+              alignment: Alignment(0.0, 0.75),
+              child: MaterialButton(
+                height: buttonHeight,
+                minWidth: buttonWidth,
+                color: ColorPalette.yellowButtonColor, //Set button color
+                child: Text(
+                  Strings.share.toUpperCase(),
+                  style: new TextStyle(
+                    fontSize: 25.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                onPressed: () {
+                  switch (butterStatus) {
+                    case Strings.notButter: {
+                      Share.share(Strings.notButterLink);
+                    }
+                    break;
+                    
+                    case Strings.crumbs: {
+                      Share.share(Strings.crumbsLink);
+                    }
+                    break;
+                    
+                    case Strings.noCrumbs: {
+                      Share.share(Strings.noCrumbsLink);
+                    }
+                    break;
+                  }
+                },
               ),
             )
           ]
