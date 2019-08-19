@@ -50,12 +50,17 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    flavorDimensions "version"
     productFlavors {
         free {
+            dimension "version"
             applicationIdSuffix ".free"
+            versionNameSuffix "-free"
         }
         pro {
+            dimension "version"
             applicationIdSuffix ".pro"
+            versionNameSuffix "-pro"
         }
     }
 
