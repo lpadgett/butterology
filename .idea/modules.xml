@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/butterology.iml" filepath="$PROJECT_DIR$/.idea/butterology.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Butterology.iml" filepath="$PROJECT_DIR$/.idea/Butterology.iml" />
     </modules>
   </component>
 </project>

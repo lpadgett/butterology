@@ -42,13 +42,16 @@ Future<void> cameraSelection(BuildContext context) async {
 
 //Create Home screen
 class HomeScreen extends StatelessWidget {
-  int streak = 0; //Used in sharing streak to social media
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]); //Prevent home screen from rotating sideways
+
+    double buttonWidth = screenWidth(context, divisionFactor: 1.5);
+    double buttonHeight = screenHeight(context, divisionFactor: 10);
+
     return MaterialApp(
       title: Strings.title,
       home: Scaffold(
@@ -67,23 +70,23 @@ class HomeScreen extends StatelessWidget {
                 ),
             ),
             Align(
-              alignment: Alignment(0.2, -0.3), //assign alignment
-              child: FractionallySizedBox(
-                widthFactor: 0.8,
-                heightFactor: 0.4,
+              alignment: Alignment(0.0, -0.3), //assign alignment
+              child: Container(
+                width: screenWidth(context, divisionFactor: 1),
+                height: screenHeight(context, divisionFactor: 2),
                 child: Image.asset (
                   Assets.homeScreenButter, //image to be displayed on homescreen
                 ),
               ),
             ),
             Align( //ANALYZE BUTTER BUTTON
-              alignment: Alignment(0.0, 0.45), //Assign alignment
+              alignment: Alignment(0.0, 0.4), //Assign alignment
               child: MaterialButton(
-                height: 45.0,
-                minWidth: 200.0,
+                height: buttonHeight,
+                minWidth: buttonWidth,
                 color: ColorPalette.yellowButtonColor, //Set button color
                 child: Text(
-                    Strings.analysisButton,
+                    Strings.analysisButton.toUpperCase(),
                     style: new TextStyle(
                     fontSize: 20.0,
                     color: Colors.white
@@ -98,19 +101,18 @@ class HomeScreen extends StatelessWidget {
             Align( //SHARE STREAK BUTTON
               alignment: Alignment(0.0, 0.75), //Assign alignment
               child: MaterialButton(
-                height: 45.0,
-                minWidth: 200.0,
+                height: buttonHeight,
+                minWidth: buttonWidth,
                 color: ColorPalette.yellowButtonColor, //Set button color
                 child: Text(
-                    Strings.shareStreakButton,
+                    Strings.shareUs.toUpperCase(),
                     style: new TextStyle(
                       fontSize: 20.0,
                       color: Colors.white
                   ),
                 ),
                 onPressed: () {
-                  //TODO: Fix link once website gets set up so that nothing is hardcoded.
-                  Share.share('https://baljeet4some.wixsite.com/website');
+                  Share.share(Strings.shareUsText + Strings.shareLink);
                 },
                 splashColor: Colors.yellowAccent,
               )
@@ -119,5 +121,16 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  static Size screenSize(BuildContext context) {
+    return MediaQuery.of(context).size;
+  }
+  static double screenHeight(BuildContext context, {double divisionFactor = 1}) {
+    return screenSize(context).height / divisionFactor;
+  }
+
+  static double screenWidth(BuildContext context, {double divisionFactor = 1}) {
+    return screenSize(context).width / divisionFactor;
   }
 }
